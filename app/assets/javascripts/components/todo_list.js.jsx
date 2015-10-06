@@ -33,20 +33,23 @@
   });
 
   root.TodoListItem = React.createClass({
+    getInitialState: function() {
+      return {visible: false};
+    },
+
+    toggleHide: function() {
+      this.setState({visible: !this.state.visible});
+    },
+
     render: function () {
       return (
         <div>
-          <div>{this.props.todoItem.title}</div>
-          <div>{this.props.todoItem.body}</div>
-          <button onClick={this.handleDestroy}>Delete</button>
+          <div onClick={this.toggleHide}>{this.props.todoItem.title}</div>
           <root.DoneButton item={this.props.todoItem}/>
+          <root.TodoDetailView visible={this.state.visible} item={this.props.todoItem}/>
         </div>
       );
     },
-
-    handleDestroy: function () {
-      root.TodoStore.destroy(this.props.todoItem.id);
-    }
   });
 
   root.TodoForm = React.createClass({
@@ -90,6 +93,25 @@
 
     handleDone: function() {
       root.TodoStore.toggleDone(this.props.item.id);
+    }
+  });
+
+  root.TodoDetailView = React.createClass({
+    render: function () {
+      if (this.props.visible) {
+        return (
+          <div>
+            <button onClick={this.handleDestroy}>Delete</button>
+            <div>{this.props.item.body}</div>
+          </div>
+        );
+      } else {
+        return <div></div>;
+      }
+    },
+
+    handleDestroy: function () {
+      root.TodoStore.destroy(this.props.item.id);
     }
   });
   // $(React.render(<TodoList/>, document.getElementById("TodoList")));
