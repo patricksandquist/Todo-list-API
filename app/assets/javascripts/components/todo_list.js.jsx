@@ -39,6 +39,7 @@
           <div>{this.props.todoItem.title}</div>
           <div>{this.props.todoItem.body}</div>
           <button onClick={this.handleDestroy}>Delete</button>
+          <root.DoneButton item={this.props.todoItem}/>
         </div>
       );
     },
@@ -81,5 +82,15 @@
     }
   });
 
+  root.DoneButton = React.createClass({
+    render: function() {
+      var done = (this.props.item.done ? "Undo" : "Done");
+      return <button onClick={this.handleDone}>{done}</button>;
+    },
+
+    handleDone: function() {
+      root.TodoStore.toggleDone(this.props.item.id);
+    }
+  });
   // $(React.render(<TodoList/>, document.getElementById("TodoList")));
 }(this));
