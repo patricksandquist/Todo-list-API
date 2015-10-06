@@ -38,8 +38,13 @@
         <div>
           <div>{this.props.todoItem.title}</div>
           <div>{this.props.todoItem.body}</div>
+          <button onClick={this.handleDestroy}>Delete</button>
         </div>
       );
+    },
+
+    handleDestroy: function () {
+      root.TodoStore.destroy(this.props.todoItem.id);
     }
   });
 
