@@ -22,7 +22,7 @@
     },
 
     all: function() {
-      return _todos.slice();
+        return _todos.slice();
     },
 
     fetch: function() {
