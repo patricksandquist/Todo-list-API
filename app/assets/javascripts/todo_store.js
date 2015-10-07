@@ -36,6 +36,8 @@
       $.post('/api/todos', {todo: todo}, function(response){
         _todos.push(response);
         root.TodoStore.changed();
+      }).fail(function(response) {
+        alert(response.responseJSON);
       });
     },
 
@@ -61,6 +63,8 @@
             _todos.splice(idx, 1);
             root.TodoStore.changed();
           }
+        }).fail(function(response) {
+          alert(response.responseJSON);
         });
       }
     },
